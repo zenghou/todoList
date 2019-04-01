@@ -1,7 +1,13 @@
 <div>
   <app-sliding-underline-menu 
     [menuItems]="menuItems" 
-    (currSelected)="onSelected($event)">
+    (currSelected)="eventHandler($event)">
   </app-sliding-underline-menu>
-  <div *ngIf="currSelected === 'Incomplete'">Add Task</div>
+
+  <app-task-list-view *ngIf="currSelected === 'Incomplete'" 
+    [tasks]="tasks"
+    (isClickOutput)="eventHandler($event)">
+  </app-task-list-view>
+  
+  <app-completed-task-list-view *ngIf="currSelected !== 'Incomplete'"></app-completed-task-list-view>
 </div>

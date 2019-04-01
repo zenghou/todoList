@@ -9,7 +9,7 @@ import * as $ from 'jquery';
 export class SlidingUnderlineMenuComponent implements OnInit {
 
   @Input('menuItems') menuItems: string[];
-  @Output() currSelected = new EventEmitter<string>();
+  @Output() currSelected = new EventEmitter<Object>();
 
   constructor() {
   }
@@ -17,9 +17,12 @@ export class SlidingUnderlineMenuComponent implements OnInit {
   ngOnInit() {
   }
 
-  menuItemSelected(event: string) {
+  menuItemSelected(selectedItem: string) {
     $('.selected').removeClass('selected');
-    $('#' + event).addClass('selected');
-    this.currSelected.emit(event);
+    $('#' + selectedItem).addClass('selected');
+    this.currSelected.emit({
+      'type' : 'selectMenuItem',
+      'selected' : selectedItem
+    });
   }  
 }

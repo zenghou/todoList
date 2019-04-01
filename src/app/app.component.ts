@@ -18,6 +18,14 @@ export class AppComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
   }
 
+  eventHandler(event) {
+    if (event.type === 'selectMenuItem') {
+      this.onSelected(event.selected);
+    } else if (event.type === 'addTask') {
+      console.log('parent received task');
+    }
+  }
+
   onSelected(selectedItem) {
     this.currSelected = selectedItem;
   }
