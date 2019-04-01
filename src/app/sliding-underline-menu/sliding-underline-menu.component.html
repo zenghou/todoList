@@ -1,0 +1,9 @@
+<div class="sliding-underline-menu-wrapper">
+  <div *ngFor="let menuItem of menuItems; let isFirst = first" 
+    class="menuItem" 
+    [class.selected]="isFirst"
+    [attr.id] = "menuItem"
+    (click)="menuItemSelected(menuItem)"> 
+    {{menuItem}}
+  </div>
+</div>
