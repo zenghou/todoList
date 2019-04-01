@@ -1,0 +1,13 @@
+<div class="task-list-view-container">
+  <div class="button" (click)="addTaskHandler()">Add Task</div>
+  <div class="task-list">
+    <div *ngFor="let task of tasks" class="task-item">
+      <div class="header"> {{ task.category }}</div>
+      <div class="subheader"> {{ task.description }}</div>
+      <div *ngFor="let subtask of task.subtasks" class="body">
+        <li> {{ subtask }} </li>
+      </div>
+      <div class="body"> {{ task.dueDate }} </div>
+    </div>
+  </div>
+<div>
