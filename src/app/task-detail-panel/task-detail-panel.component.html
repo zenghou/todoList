@@ -1,3 +1,29 @@
-<p>
-  task-detail-panel works!
-</p>
+<div class="task-detail-panel-wrapper">
+  <form>
+
+    <div>
+      <select (change)="handleDropdownChange($event)">
+        <option disabled selected value> -- select an option -- </option>
+        <option *ngFor="let category of categories">{{ category }}</option>
+        <option>Add a new category</option>
+      </select>
+      <input id="categoryInput" placeholder="Category" *ngIf="showCategoryInput">
+    </div>
+
+    <div>
+      <textarea id="description" placeholder="Description"></textarea>
+    </div>
+
+    <div>
+      <input type="checkbox">
+      <textarea id="subtasks" placeholder="Subtasks"></textarea>
+    </div>
+
+    <div class="save-cancel-container">
+      <div class="primary-button button" type="submit">Save</div>
+      <div class="secondary-button button" (click)="cancelAddTask()">Cancel</div>
+    </div>
+    
+  </form>
+
+</div>

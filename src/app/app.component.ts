@@ -7,12 +7,18 @@ import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 })
 export class AppComponent implements OnInit, AfterViewInit {
   title = 'todoList';
-  menuItems: string[];
-  currSelected: string;
+  menuItems: string[]; // menu item used in dropdown
+  currSelected: string; // currently selected tab
+  showTaskDetailPanel: boolean; // flag to determine if detail panel should be shown
+  categories: string[]; // cached list of categories
+  tasks: Object[]; // list of all tasks to be displayed
 
   ngOnInit() {
     this.menuItems = ['Incomplete', 'Complete'];
     this.currSelected = this.menuItems[0];
+    this.showTaskDetailPanel = false;
+    this.tasks = [];
+    this.categories = [];
   }
 
   ngAfterViewInit() {
@@ -22,11 +28,23 @@ export class AppComponent implements OnInit, AfterViewInit {
     if (event.type === 'selectMenuItem') {
       this.onSelected(event.selected);
     } else if (event.type === 'addTask') {
-      console.log('parent received task');
+      this.showTaskDetailPanel = true;
+    } else if (event.type === 'newTask') {
+      let taskObj = event.newTask;
+      this.tasks.push(taskObj);
+      if (!this.categories.includes(taskObj.category)) {
+        this.categories.push(taskObj.category);
+      }
+      this.showTaskDetailPanel = false;
+    } else if (event.type === 'cancelAddTask') {
+      this.showTaskDetailPanel = false;
     }
   }
 
   onSelected(selectedItem) {
     this.currSelected = selectedItem;
+    if (selectedItem === 'Complete') {
+      this.showTaskDetailPanel = false;
+    }
   }
 }
