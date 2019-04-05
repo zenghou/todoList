@@ -11,8 +11,7 @@ export class TaskDetailPanelComponent implements OnInit {
   @Output() eventEmitter = new EventEmitter<Object>();
 
   showCategoryInput: boolean;
-  form: FormGroup;
-  taskObj: Object = {};
+  formModel: Object = {};
 
   constructor() { }
 
@@ -20,9 +19,9 @@ export class TaskDetailPanelComponent implements OnInit {
   }
 
   saveTask() {
-    let category = this.showCategoryInput ? $('#categoryInput').val() : $('select').val();
-    let description = $('#description').val();
-    let subtasks = $('#subtasks').val();
+    let category = this.showCategoryInput ? this.formModel.newCategory : this.formModel.category;
+    let description = this.formModel.description;
+    let subtasks = this.formModel.subtasks;
 
     let obj = {
       'category' : category,
@@ -43,12 +42,7 @@ export class TaskDetailPanelComponent implements OnInit {
     });
   }
 
-  handleDropdownChange(event) {
-    this.showCategoryInput = event.target.value === 'Add a new category' ? true : false;
+  handleDropdownChange() {
+    this.showCategoryInput = this.formModel.category === 'Add a new category' ? true : false;
   }
-
-  changeDropdown() {
-    console.log(this.taskObj.category);
-  }
-
 }

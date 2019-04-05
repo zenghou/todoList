@@ -1,29 +1,37 @@
 <div class="task-detail-panel-wrapper">
-  <form>
-
-    <div>
-      <select (change)="handleDropdownChange($event)">
+  <!-- Use template driven form -->
+  <form #taskForm="ngForm">
+    <div class="form-group">
+      <select (change)="handleDropdownChange()" [(ngModel)]="formModel.category" name="category">
         <option disabled selected value> -- select an option -- </option>
         <option *ngFor="let category of categories">{{ category }}</option>
         <option>Add a new category</option>
       </select>
-      <input id="categoryInput" placeholder="Category" *ngIf="showCategoryInput">
+
+      <input id="categoryInput" placeholder="Category" *ngIf="showCategoryInput" 
+        [(ngModel)]="formModel.newCategory" name="categoryInput">
     </div>
 
     <div>
-      <textarea id="description" placeholder="Description"></textarea>
+      <label for="description">Description</label>
+      <textarea id="description" placeholder="Description" 
+        [(ngModel)]="formModel.description" name="description">
+      </textarea>
     </div>
 
     <div>
-      <input type="checkbox">
-      <textarea id="subtasks" placeholder="Subtasks"></textarea>
+      <label for="subtaskCheckbox">Add SubTask</label>
+      <input type="checkbox" [(ngModel)]="formModel.hasSubtasks" name="subtaskCheckbox">
+      <textarea id="subtasks" placeholder="Subtasks" *ngIf="formModel.hasSubtasks"></textarea>
     </div>
-
-    <div class="save-cancel-container">
-      <div class="primary-button button" type="submit">Save</div>
-      <div class="secondary-button button" (click)="cancelAddTask()">Cancel</div>
-    </div>
-    
   </form>
 
+  <div class="save-cancel-container">
+    <div class="primary-button button" (click)="saveTask()">Save</div>
+    <div class="secondary-button button" (click)="cancelAddTask()">Cancel</div>
+  </div>
+
+  <br>
+  To Remove:
+  {{ formModel | json }}
 </div>
