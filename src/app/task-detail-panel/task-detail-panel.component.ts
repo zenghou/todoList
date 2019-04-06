@@ -38,7 +38,7 @@ export class TaskDetailPanelComponent implements OnInit {
   handleDropdownChange(): void {
     this.showCategoryInput = this._category.value === 'Add a new category' ? true : false;
     if (this.showCategoryInput) {
-      this._category.value = ''; // reset field since input is also bound to 'category' FormControl
+      this._category.reset(); // reset field since input is also bound to 'category' FormControl
     }
   }
 
