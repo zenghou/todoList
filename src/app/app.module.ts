@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from "@angular/forms";
+import { ReactiveFormsModule } from "@angular/forms";
 import * as $ from 'jquery';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -21,7 +21,7 @@ import { TaskDetailPanelComponent } from './task-detail-panel/task-detail-panel.
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

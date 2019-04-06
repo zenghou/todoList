@@ -1,37 +1,30 @@
 <div class="task-detail-panel-wrapper">
-  <!-- Use template driven form -->
-  <form #taskForm="ngForm">
-    <div class="form-group">
-      <select (change)="handleDropdownChange()" [(ngModel)]="formModel.category" name="category">
+  <!-- Use Reactive Form (Model Driven) -->
+  <form [formGroup]="formModel">
+    <div>
+      <select (change)="handleDropdownChange()" formControlName="category">
         <option disabled selected value> -- select an option -- </option>
-        <option *ngFor="let category of categories">{{ category }}</option>
+        <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
         <option>Add a new category</option>
       </select>
 
-      <input id="categoryInput" placeholder="Category" *ngIf="showCategoryInput" 
-        [(ngModel)]="formModel.newCategory" name="categoryInput">
+      <div *ngIf="showCategoryInput">
+        Category: <input formControlName="category">
+      </div>
     </div>
 
-    <div>
-      <label for="description">Task Description</label>
-      <textarea id="description" placeholder="Description" 
-        [(ngModel)]="formModel.description" name="description">
-      </textarea>
+    <div formArrayName="tasks">
+      <!-- _tasksFormArray is getter defined in component -->
+      <div *ngFor="let task of _tasksFormArray.controls; let i = index" [formGroupName]="i">
+        Task: <input formControlName="task">
+      </div>
     </div>
-
-    <div>
-      <label for="subtaskCheckbox">Add SubTask</label>
-      <input type="checkbox" [(ngModel)]="formModel.hasSubtasks" name="subtaskCheckbox">
-      <textarea id="subtasks" placeholder="Subtasks" *ngIf="formModel.hasSubtasks"></textarea>
-    </div>
+    <button (click)="addTaskRow()">Add Task Row</button>
   </form>
 
   <div class="save-cancel-container">
     <div class="primary-button button" (click)="saveTask()">Save</div>
     <div class="secondary-button button" (click)="cancelAddTask()">Cancel</div>
   </div>
-
-  <br>
-  To Remove:
-  {{ formModel | json }}
 </div>
+<pre>{{ formModel.value | json }}</pre>

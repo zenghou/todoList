@@ -1,4 +1,5 @@
 import { Component, OnInit, EventEmitter, Input, Output} from '@angular/core';
+import { FormBuilder, FormGroup, FormArray, FormControl } from '@angular/forms';
 import * as $ from 'jquery';
 
 @Component({
@@ -11,38 +12,66 @@ export class TaskDetailPanelComponent implements OnInit {
   @Output() eventEmitter = new EventEmitter<Object>();
 
   showCategoryInput: boolean;
-  formModel: Object = {};
+  formModel : FormGroup;
 
-  constructor() { }
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit() {
+    this.formModel = this.fb.group({
+      category: new FormControl(),
+      tasks: this.fb.array([ this.createTask() ])
+    })
   }
 
-  saveTask() {
-    let category = this.showCategoryInput ? this.formModel.newCategory : this.formModel.category;
-    let description = this.formModel.description;
-    let subtasks = this.formModel.subtasks;
+  // creates a group of FormControl for better scalabilty when more fields are required 
+  createTask(): FormGroup {
+    return this.fb.group({
+      task: '', // same as FormControl('')
+    });
+  }
 
-    let obj = {
-      'category' : category,
-      'description' : description,
-      'subtasks' : [subtasks],
+  addTaskRow(): void {
+    let tasks = this.formModel.get('tasks') as FormArray;
+    tasks.push(this.createTask());
+  }
+
+  handleDropdownChange(): void {
+    this.showCategoryInput = this._category.value === 'Add a new category' ? true : false;
+    if (this.showCategoryInput) {
+      this._category.value = ''; // reset field since input is also bound to 'category' FormControl
+    }
+  }
+
+  saveTask(): void {
+    let newTaskObj = {
+      'category' : this._category.value,
+      'description' : 'This field should be deleted',
+      'subtasks' : this._tasks,
       'dueDate' : new Date().toDateString()
     }
 
     this.eventEmitter.emit({
       'type' : 'newTask',
-      'newTask' : obj
+      'newTask' : newTaskObj
     });
   }
 
-  cancelAddTask() {
+  cancelAddTask(): void {
     this.eventEmitter.emit({
       'type' : 'cancelAddTask'
     });
   }
 
-  handleDropdownChange() {
-    this.showCategoryInput = this.formModel.category === 'Add a new category' ? true : false;
+  // getters
+  get _category() {
+    return this.formModel.get('category');
+  }
+
+  get _tasksFormArray() {
+    return this.formModel.get('tasks') as FormArray;
+  }
+
+  get _tasks() {
+    return this._tasksFormArray.controls.map(control => control.value.task);
   }
 }
