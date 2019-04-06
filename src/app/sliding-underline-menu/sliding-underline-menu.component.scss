@@ -4,4 +4,7 @@
   &.selected {
     border-bottom: 5px solid red;
   }
+  &:hover {
+    cursor: pointer;
+  }
 }

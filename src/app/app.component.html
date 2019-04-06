@@ -8,6 +8,12 @@
     [tasks]="tasks"
     (isClickOutput)="eventHandler($event)">
   </app-task-list-view>
+
+  <app-task-detail-panel *ngIf="showTaskDetailPanel"
+    [categories]="categories"
+    (eventEmitter)="eventHandler($event)">
+  </app-task-detail-panel>
   
-  <app-completed-task-list-view *ngIf="currSelected !== 'Incomplete'"></app-completed-task-list-view>
+  <app-completed-task-list-view *ngIf="currSelected !== 'Incomplete'">
+  </app-completed-task-list-view>
 </div>
