@@ -35,6 +35,11 @@ export class TaskDetailPanelComponent implements OnInit {
     tasks.push(this.createTask());
   }
 
+  removeTaskRow(rowIndex): void {
+    let tasks = this.formModel.get('tasks') as FormArray;
+    tasks.removeAt(rowIndex);
+  }
+
   handleDropdownChange(): void {
     this.showCategoryInput = this._category.value === 'Add a new category' ? true : false;
     if (this.showCategoryInput) {

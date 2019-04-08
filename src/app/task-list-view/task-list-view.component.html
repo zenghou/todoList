@@ -1,5 +1,5 @@
 <div class="task-list-view-container">
-  <div class="button" (click)="addTaskHandler()">Add Task</div>
+  <button class="button" type="button" class="btn btn-primary" (click)="addTaskHandler()">Add Task</button>
   <div class="task-list">
     <div *ngFor="let task of tasks" class="task-item">
       <div class="header"> {{ task.category }}</div>

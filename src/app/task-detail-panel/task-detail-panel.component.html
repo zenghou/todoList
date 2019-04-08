@@ -2,29 +2,38 @@
   <!-- Use Reactive Form (Model Driven) -->
   <form [formGroup]="formModel">
     <div>
-      <select (change)="handleDropdownChange()" formControlName="category">
-        <option disabled selected value> -- select an option -- </option>
+      <label class="font-weight-bold" for="category-dropdown">Select an option:</label>
+      <select (change)="handleDropdownChange()" formControlName="category" class="form-control" 
+        id="category-dropdown">
         <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
         <option>Add a new category</option>
       </select>
 
-      <div *ngIf="showCategoryInput">
-        Category: <input formControlName="category">
+      <div *ngIf="showCategoryInput" id="category-input-wrapper">
+        <label class="font-weight-bold" for="category-input">Category:</label>
+        <input type="text" class="form-control" id="category-input" formControlName="category">
       </div>
     </div>
 
-    <div formArrayName="tasks">
+    <div formArrayName="tasks" id="task-input-wrapper">
       <!-- _tasksFormArray is getter defined in component -->
-      <div *ngFor="let task of _tasksFormArray.controls; let i = index" [formGroupName]="i">
-        Task: <input formControlName="task">
+      <label class="font-weight-bold" for="task-input">Task:</label>
+      <div *ngFor="let task of _tasksFormArray.controls; 
+        let i = index" [formGroupName]="i">
+        <input type="text" id="task-input" class="form-control" formControlName="task">
+        <button type="button" class="close" aria-label="Close" *ngIf="i !== 0">
+          <span aria-hidden="true" (click)="removeTaskRow(i)">&times;</span>
+        </button>
       </div>
     </div>
-    <button (click)="addTaskRow()">Add Task Row</button>
+    <button class="btn btn-primary" (click)="addTaskRow()">Add Task Row</button>
   </form>
 
-  <div class="save-cancel-container">
-    <div class="primary-button button" (click)="saveTask()">Save</div>
-    <div class="secondary-button button" (click)="cancelAddTask()">Cancel</div>
+  <div id="save-cancel-container">
+    <button type="button" class="btn btn-light" (click)="cancelAddTask()">Cancel</button>
+    <button type="button" class="btn btn-primary" (click)="saveTask()">Save</button>
   </div>
 </div>
-<pre>{{ formModel.value | json }}</pre>
+
+<!-- display formModel via json pipe to view changes -->
+<!-- <pre>{{ formModel.value | json }}</pre> -->
