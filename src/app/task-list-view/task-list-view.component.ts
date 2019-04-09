@@ -15,9 +15,23 @@ export class TaskListViewComponent implements OnInit {
   ngOnInit() {
   }
 
-  addTaskHandler() {
+  hoverHandler(event) {
+    console.log(event);
+    if (event.type === 'mouseleave' || event.type === 'click') {
+      $(event.target).removeClass('hover');
+    } else if (event.type === 'mouseenter') {
+      $(event.target).addClass('hover');
+    }
+  }
+
+  addTaskHandler(): void {
     this.isClickOutput.emit({
       'type': 'addTask'
     });
+  }
+
+  markAsComplete(subtaskId, event): void {
+    $('#' + subtaskId).toggleClass('strike');
+    console.log(event);
   }
 }

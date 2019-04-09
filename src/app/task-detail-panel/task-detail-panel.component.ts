@@ -52,7 +52,6 @@ export class TaskDetailPanelComponent implements OnInit {
     let newTaskObj = {
       'category': this._category.value,
       'newCategory': this._newCategory.value,
-      'description': 'This field should be deleted',
       'subtasks': this._tasks,
       'dueDate': new Date().toDateString()
     }

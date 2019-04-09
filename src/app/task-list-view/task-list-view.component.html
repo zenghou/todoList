@@ -1,14 +1,26 @@
 <div class="task-list-view-container">
   <button class="button" type="button" class="btn btn-primary" (click)="addTaskHandler()">Add Task</button>
   <div class="task-list">
-    <div *ngFor="let task of tasks" class="task-item">
+
+    <div *ngFor="let task of tasks; let taskIndex = index" class="task-item">
       <div class="header"> {{ task.category }}</div>
-      <div class="subheader"> {{ task.description }}</div>
-      <div *ngFor="let subtask of task.subtasks" class="body">
-        <li> {{ subtask }} </li>
+
+      <div *ngFor="let subtask of task.subtasks; let subtaskIndex = index" class="body">
+
+        <span (click)="markAsComplete(taskIndex + '-' + subtaskIndex, $event)">
+          <fa-icon [icon]="['far', 'square']"
+            (mouseenter)="hoverHandler($event)"
+            (mouseleave)="hoverHandler($event)"
+            (click)="hoverHandler($event)">
+          </fa-icon>
+        </span>
+
+        <span class="subtask" [id]="taskIndex + '-' + subtaskIndex">{{ subtask }}</span>
+
       </div>
+
       <div class="body"> {{ task.dueDate }} </div>
-      <div (click)="markAsComplete()">Mark As Complete</div>
     </div>
+
   </div>
 <div>
