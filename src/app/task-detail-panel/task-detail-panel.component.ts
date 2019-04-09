@@ -19,8 +19,9 @@ export class TaskDetailPanelComponent implements OnInit {
   ngOnInit() {
     this.formModel = this.fb.group({
       category: new FormControl(),
+      newCategory: new FormControl(),
       tasks: this.fb.array([ this.createTask() ])
-    })
+    });
   }
 
   // creates a group of FormControl for better scalabilty when more fields are required 
@@ -43,16 +44,17 @@ export class TaskDetailPanelComponent implements OnInit {
   handleDropdownChange(): void {
     this.showCategoryInput = this._category.value === 'Add a new category' ? true : false;
     if (this.showCategoryInput) {
-      this._category.reset(); // reset field since input is also bound to 'category' FormControl
+      // this._category.reset(); // reset field since input is also bound to 'category' FormControl
     }
   }
 
   saveTask(): void {
     let newTaskObj = {
-      'category' : this._category.value,
-      'description' : 'This field should be deleted',
-      'subtasks' : this._tasks,
-      'dueDate' : new Date().toDateString()
+      'category': this._category.value,
+      'newCategory': this._newCategory.value,
+      'description': 'This field should be deleted',
+      'subtasks': this._tasks,
+      'dueDate': new Date().toDateString()
     }
 
     this.eventEmitter.emit({
@@ -70,6 +72,10 @@ export class TaskDetailPanelComponent implements OnInit {
   // getters
   get _category() {
     return this.formModel.get('category');
+  }
+
+  get _newCategory() {
+    return this.formModel.get('newCategory');
   }
 
   get _tasksFormArray() {

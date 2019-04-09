@@ -32,8 +32,9 @@ export class AppComponent implements OnInit, AfterViewInit {
     } else if (event.type === 'newTask') {
       let taskObj = event.newTask;
       this.tasks.push(taskObj);
-      if (!this.categories.includes(taskObj.category)) {
-        this.categories.push(taskObj.category);
+      let newCategory = taskObj.newCategory;
+      if (newCategory && !this.categories.includes(newCategory)) {
+        this.categories.push(newCategory);
       }
       this.showTaskDetailPanel = false;
     } else if (event.type === 'cancelAddTask') {
