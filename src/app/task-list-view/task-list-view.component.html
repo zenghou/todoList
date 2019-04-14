@@ -3,10 +3,21 @@
   <div class="task-list">
 
     <div *ngFor="let task of tasks; let taskIndex = index" class="task-item">
-      <div class="header"> {{ task.category }}</div>
+      <div class="task-header"> 
+        {{ task.category }}
+        <div ngbDropdown class="d-inline-block">
+          <div id="dropdownBasic1" ngbDropdownToggle>
+            <fa-icon [icon]="['fas', 'ellipsis-h']" class="caret-down"></fa-icon>
+          </div>
+
+          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+            <button (click)="menuHandler($event, taskIndex, task)" ngbDropdownItem value="Edit">Edit</button>
+            <button (click)="menuHandler($event, taskIndex, task)" ngbDropdownItem value="Delete">Delete</button>
+          </div>
+        </div>
+      </div>
 
       <div *ngFor="let subtask of task.subtasks; let subtaskIndex = index" class="body">
-
         <span (click)="markAsComplete(taskIndex + '-' + subtaskIndex, $event)">
           <fa-icon [icon]="['far', 'square']"
             (mouseenter)="hoverHandler($event)"

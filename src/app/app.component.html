@@ -1,4 +1,4 @@
-<div>
+<div id="root-wrapper">
   <app-sliding-underline-menu 
     [menuItems]="menuItems" 
     (currSelected)="eventHandler($event)">
@@ -6,7 +6,7 @@
 
   <app-task-list-view *ngIf="currSelected === 'Incomplete'" 
     [tasks]="tasks"
-    (isClickOutput)="eventHandler($event)">
+    (eventEmitter)="eventHandler($event)">
   </app-task-list-view>
 
   <app-task-detail-panel *ngIf="showTaskDetailPanel"

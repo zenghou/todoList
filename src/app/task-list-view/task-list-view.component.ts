@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-task-list-view',
@@ -8,7 +9,7 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 export class TaskListViewComponent implements OnInit {
 
   @Input('tasks') tasks: Object[]
-  @Output() isClickOutput = new EventEmitter<Object>();
+  @Output() eventEmitter = new EventEmitter<Object>();
 
   constructor() { }
 
@@ -24,8 +25,17 @@ export class TaskListViewComponent implements OnInit {
     }
   }
 
+  menuHandler(event, index, task): void {
+    let type = $(event.target).val();
+    this.eventEmitter.emit({
+      'type' : type.toLowerCase(),
+      'task-index' : index,
+      'category' : task.category
+    });
+  }
+
   addTaskHandler(): void {
-    this.isClickOutput.emit({
+    this.eventEmitter.emit({
       'type': 'addTask'
     });
   }
