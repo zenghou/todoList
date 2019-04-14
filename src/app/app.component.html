@@ -11,6 +11,7 @@
 
   <app-task-detail-panel *ngIf="showTaskDetailPanel"
     [categories]="categories"
+    [existingFormObj]="existingFormObj"
     (eventEmitter)="eventHandler($event)">
   </app-task-detail-panel>
   

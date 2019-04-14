@@ -29,8 +29,8 @@ export class TaskListViewComponent implements OnInit {
     let type = $(event.target).val();
     this.eventEmitter.emit({
       'type' : type.toLowerCase(),
-      'task-index' : index,
-      'category' : task.category
+      'index' : index,
+      'task' : task
     });
   }
 

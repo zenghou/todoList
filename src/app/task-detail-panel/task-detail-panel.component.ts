@@ -9,6 +9,7 @@ import * as $ from 'jquery';
 })
 export class TaskDetailPanelComponent implements OnInit {
   @Input('categories') categories: string[];
+  @Input('existingFormObj') existingFormObj;
   @Output() eventEmitter = new EventEmitter<Object>();
 
   showCategoryInput: boolean;
@@ -17,17 +18,27 @@ export class TaskDetailPanelComponent implements OnInit {
   constructor(private fb: FormBuilder) { }
 
   ngOnInit() {
-    this.formModel = this.fb.group({
-      category: new FormControl(),
-      newCategory: new FormControl(),
-      tasks: this.fb.array([ this.createTask() ])
-    });
+    if (!this.existingFormObj) {
+      this.formModel = this.fb.group({
+        category: new FormControl(),
+        newCategory: new FormControl(),
+        tasks: this.fb.array([ this.createTask(null) ])
+      });
+    } else {
+      let subTasks = [];
+      this.existingFormObj.subtasks.forEach(task => subTasks.push(this.createTask(task)));
+      this.formModel = this.fb.group({
+        category: new FormControl(this.existingFormObj.category),
+        newCategory: new FormControl(),
+        tasks: this.fb.array(subTasks)
+      });
+    }
   }
 
   // creates a group of FormControl for better scalabilty when more fields are required 
-  createTask(): FormGroup {
+  createTask(t): FormGroup {
     return this.fb.group({
-      task: '', // same as FormControl('')
+      task: t ? t : '', // same as FormControl('')
     });
   }
 
@@ -49,7 +60,7 @@ export class TaskDetailPanelComponent implements OnInit {
   }
 
   saveTask(): void {
-    let newTaskObj = {
+    let taskObj = {
       'category': this._category.value,
       'newCategory': this._newCategory.value,
       'subtasks': this._tasks,
@@ -57,8 +68,8 @@ export class TaskDetailPanelComponent implements OnInit {
     }
 
     this.eventEmitter.emit({
-      'type' : 'newTask',
-      'newTask' : newTaskObj
+      'type' : this.existingFormObj ? 'updateTask' : 'newTask',
+      'task' : taskObj
     });
   }
 

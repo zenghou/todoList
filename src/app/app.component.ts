@@ -12,6 +12,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   showTaskDetailPanel: boolean; // flag to determine if detail panel should be shown
   categories: string[]; // cached list of categories
   tasks: Object[]; // list of all tasks to be displayed
+  existingFormObj: Object;
 
   ngOnInit() {
     this.menuItems = ['Incomplete', 'Complete'];
@@ -19,14 +20,15 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.showTaskDetailPanel = false;
     this.tasks = [];
     this.categories = [];
+    this.existingFormObj = null;
 
     //temp
-    this.tasks.push({
-      'category': 'Category 1',
-      'newCategory': 'New Category 1',
-      'subtasks': ['Subtask 1', 'Subtask 2'],
-      'dueDate': new Date().toDateString()
-    });
+    // this.tasks.push({
+    //   'category': 'Category 1',
+    //   'newCategory': 'New Category 1',
+    //   'subtasks': ['Subtask 1', 'Subtask 2'],
+    //   'dueDate': new Date().toDateString()
+    // });
   }
 
   ngAfterViewInit() {
@@ -38,7 +40,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     } else if (event.type === 'addTask') {
       this.showTaskDetailPanel = true;
     } else if (event.type === 'newTask') {
-      let taskObj = event.newTask;
+      let taskObj = event.task;
       let newCategory = taskObj.newCategory;
       if (newCategory && !this.categories.includes(newCategory)) {
         this.categories.push(newCategory);
@@ -48,6 +50,24 @@ export class AppComponent implements OnInit, AfterViewInit {
       this.showTaskDetailPanel = false;
     } else if (event.type === 'cancelAddTask') {
       this.showTaskDetailPanel = false;
+      this.existingFormObj = null;
+    } else if (event.type === 'delete') {
+      // remove category for now
+      this.categories = this.categories.filter(category => category != event.task.category);
+      this.tasks = this.tasks.filter((elem, index) => index !== event.index);
+    } else if (event.type === 'edit') {
+      this.showTaskDetailPanel = true;
+      this.existingFormObj = event.task;
+    } else if (event.type === 'updateTask') {
+
+      //TODO: need to find a better way to map to existing task
+      this.tasks.map(task => {
+        if (task.category === event.task.category) {
+          task.subtasks = event.task.subtasks;
+        }
+      });
+      this.showTaskDetailPanel = false;
+      this.existingFormObj = null;
     }
   }
 
