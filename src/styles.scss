@@ -5,4 +5,13 @@
 .btn:focus {
   box-shadow: none;
   outline: none;
-} 
+}
+
+#root-wrapper {
+  padding: 20px
+}
+
+// hide bootstrap caret
+.dropdown-toggle::after {
+    display:none;
+}

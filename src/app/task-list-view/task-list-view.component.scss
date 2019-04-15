@@ -1,6 +1,6 @@
 .task-list-view-container {
   border: 1px solid #E7EAEB;
-  padding: 20px 0 20px 20px;
+  padding: 20px 20px 20px 20px;
   margin-top: 20px;
 
   .task-item {
@@ -13,9 +13,13 @@
     margin-top: 20px;
   }
 
-  .header {
+  .task-header {
     font-size: 20px;
     font-weight: bold;
+
+    .caret-down {
+      color: #BDC3C7;
+    }
   }
 
   .subheader {
