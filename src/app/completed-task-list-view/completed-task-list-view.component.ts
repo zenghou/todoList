@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-completed-task-list-view',
@@ -6,6 +6,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./completed-task-list-view.component.scss']
 })
 export class CompletedTaskListViewComponent implements OnInit {
+
+  @Input('completedTasks') tasks: Object[]
+  @Output() eventEmitter = new EventEmitter<Object>();
 
   constructor() { }
 

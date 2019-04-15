@@ -1,3 +1,35 @@
-<p>
-  completed-task-list-view works!
-</p>
+<div class="completed-task-list-view-container">
+  <div class="task-list">
+
+    <div *ngFor="let task of tasks; let taskIndex = index" class="task-item">
+      <div class="task-header"> 
+        {{ task.category }}
+        <div ngbDropdown class="d-inline-block">
+          <div id="dropdownBasic1" ngbDropdownToggle>
+            <fa-icon [icon]="['fas', 'ellipsis-h']" class="caret-down"></fa-icon>
+          </div>
+
+          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+            <button (click)="menuHandler($event, taskIndex, task)" ngbDropdownItem value="edit">Edit</button>
+            <button (click)="menuHandler($event, taskIndex, task)" ngbDropdownItem value="delete">Delete</button><button (click)="menuHandler($event, taskIndex, task)" ngbDropdownItem value="mark-as-complete">Mark As Incomplete</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="body"> {{ task.dateAdded }} </div>
+      <div *ngFor="let subtask of task.subtasks; let subtaskIndex = index" class="body">
+        <span (click)="markAsComplete(taskIndex + '-' + subtaskIndex, $event)">
+          <fa-icon [icon]="['far', 'check-square']"
+            (mouseenter)="hoverHandler($event)"
+            (mouseleave)="hoverHandler($event)"
+            (click)="hoverHandler($event)">
+          </fa-icon>
+        </span>
+
+        <span class="subtask" [id]="taskIndex + '-' + subtaskIndex">{{ subtask }}</span>
+
+      </div>
+    </div>
+
+  </div>
+<div>

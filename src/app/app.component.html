@@ -15,6 +15,8 @@
     (eventEmitter)="eventHandler($event)">
   </app-task-detail-panel>
   
-  <app-completed-task-list-view *ngIf="currSelected !== 'Incomplete'">
+  <app-completed-task-list-view *ngIf="currSelected !== 'Incomplete'"
+    [completedTasks]="completedTasks"
+    (eventEmitter)="eventHandler($event)">
   </app-completed-task-list-view>
 </div>

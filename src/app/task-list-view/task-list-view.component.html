@@ -1,8 +1,8 @@
 <div class="task-list-view-container">
-  <button class="button" type="button" class="btn btn-primary" (click)="addTaskHandler()">Add Task</button>
+  <button class="button" type="button" class="btn btn-primary" (click)="addTaskClickHandler()">Add Task</button>
   <div class="task-list">
 
-    <div *ngFor="let task of tasks; let taskIndex = index" class="task-item">
+    <div *ngFor="let task of tasks; let taskIndex = index" class="task-item" [id]="taskIndex">
       <div class="task-header"> 
         {{ task.category }}
         <div ngbDropdown class="d-inline-block">
@@ -11,26 +11,25 @@
           </div>
 
           <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-            <button (click)="menuHandler($event, taskIndex, task)" ngbDropdownItem value="Edit">Edit</button>
-            <button (click)="menuHandler($event, taskIndex, task)" ngbDropdownItem value="Delete">Delete</button>
+            <button (click)="menuHandler($event, taskIndex, task)" ngbDropdownItem value="edit">Edit</button>
+            <button (click)="menuHandler($event, taskIndex, task)" ngbDropdownItem value="delete">Delete</button><button (click)="menuHandler($event, taskIndex, task)" ngbDropdownItem value="mark-as-complete">Mark As Complete</button>
           </div>
         </div>
       </div>
 
-      <div *ngFor="let subtask of task.subtasks; let subtaskIndex = index" class="body">
+      <div class="body"> {{ task.dateAdded }} </div>
+      <div *ngFor="let subtask of task.subtasks; let subtaskIndex = index" class="body subtask-container">
         <span (click)="markAsComplete(taskIndex + '-' + subtaskIndex, $event)">
-          <fa-icon [icon]="['far', 'square']"
-            (mouseenter)="hoverHandler($event)"
-            (mouseleave)="hoverHandler($event)"
-            (click)="hoverHandler($event)">
+          <fa-icon [icon]="['far', 'check-square']"
+            (mouseenter)="checkBoxHandler($event)"
+            (mouseleave)="checkBoxHandler($event)"
+            (click)="checkBoxHandler($event)">
           </fa-icon>
         </span>
 
         <span class="subtask" [id]="taskIndex + '-' + subtaskIndex">{{ subtask }}</span>
 
       </div>
-
-      <div class="body"> {{ task.dueDate }} </div>
     </div>
 
   </div>

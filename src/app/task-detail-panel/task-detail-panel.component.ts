@@ -9,7 +9,7 @@ import * as $ from 'jquery';
 })
 export class TaskDetailPanelComponent implements OnInit {
   @Input('categories') categories: string[];
-  @Input('existingFormObj') existingFormObj;
+  @Input('existingFormObj') existingFormObj: Object;
   @Output() eventEmitter = new EventEmitter<Object>();
 
   showCategoryInput: boolean;
@@ -26,9 +26,9 @@ export class TaskDetailPanelComponent implements OnInit {
       });
     } else {
       let subTasks = [];
-      this.existingFormObj.subtasks.forEach(task => subTasks.push(this.createTask(task)));
+      this.existingFormObj['subtasks'].forEach(task => subTasks.push(this.createTask(task)));
       this.formModel = this.fb.group({
-        category: new FormControl(this.existingFormObj.category),
+        category: new FormControl(this.existingFormObj['category']),
         newCategory: new FormControl(),
         tasks: this.fb.array(subTasks)
       });
@@ -44,7 +44,7 @@ export class TaskDetailPanelComponent implements OnInit {
 
   addTaskRow(): void {
     let tasks = this.formModel.get('tasks') as FormArray;
-    tasks.push(this.createTask());
+    tasks.push(this.createTask(null));
   }
 
   removeTaskRow(rowIndex): void {
@@ -64,12 +64,13 @@ export class TaskDetailPanelComponent implements OnInit {
       'category': this._category.value,
       'newCategory': this._newCategory.value,
       'subtasks': this._tasks,
-      'dueDate': new Date().toDateString()
+      'dateAdded': new Date().toDateString()
     }
 
     this.eventEmitter.emit({
-      'type' : this.existingFormObj ? 'updateTask' : 'newTask',
-      'task' : taskObj
+      'type' : this.existingFormObj ? 'updateTask' : 'addNewTask',
+      'task' : taskObj,
+      'index' : this.existingFormObj ? this.existingFormObj['index'] : null // use existing index if modifying prev task
     });
   }
 

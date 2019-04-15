@@ -16,32 +16,51 @@ export class TaskListViewComponent implements OnInit {
   ngOnInit() {
   }
 
-  hoverHandler(event) {
-    console.log(event);
+  checkBoxHandler(event) {
     if (event.type === 'mouseleave' || event.type === 'click') {
       $(event.target).removeClass('hover');
     } else if (event.type === 'mouseenter') {
       $(event.target).addClass('hover');
+    } else if (event.type === 'click') {
+      // toggle fa icon here
     }
   }
 
   menuHandler(event, index, task): void {
     let type = $(event.target).val();
     this.eventEmitter.emit({
-      'type' : type.toLowerCase(),
+      'type' : type,
       'index' : index,
       'task' : task
     });
   }
 
-  addTaskHandler(): void {
+  addTaskClickHandler(): void {
     this.eventEmitter.emit({
-      'type': 'addTask'
+      'type': 'addTaskButtonClick'
     });
   }
 
   markAsComplete(subtaskId, event): void {
     $('#' + subtaskId).toggleClass('strike');
-    console.log(event);
+    let $target = $(event.target);
+    let $subtaskContainers = $target.parents('.subtask-container').siblings('.subtask-container');
+    let completed = true;
+    // check all subtasks to see if they're striked out
+    $subtaskContainers.each(function(i, elem) {
+      if (!$(elem).find('.subtask').hasClass('strike')) {
+        completed = false;
+      }
+    });
+    if (completed) {
+      let $taskItem = $target.parents('.task-item');
+      // emit event after slide up to show animation
+      $taskItem.slideUp(1000, () => {
+        this.eventEmitter.emit({
+          'type' : 'mark-as-complete',
+          'index' : $taskItem.attr('id')
+        });
+      });
+    }
   }
 }
