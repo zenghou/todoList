@@ -1,8 +1,15 @@
+.sliding-underline-menu-wrapper {
+  background: #343A40;
+  padding: 20px 0 0 20px;
+}
 .menuItem {
   display: inline-block;
-  padding: 0 10px 5px 0;
+  padding: 0 0 10px 0;
+  margin-right: 10px;
+  color: #D5DCE0;
   &.selected {
-    border-bottom: 5px solid red;
+    border-bottom: 5px solid #acd1f9;
+    color: #acd1f9;
   }
   &:hover {
     cursor: pointer;

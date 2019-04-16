@@ -2,6 +2,8 @@
   border: 1px solid #E7EAEB;
   padding: 20px 20px 20px 20px;
   margin-top: 20px;
+  display: inline-block;
+  background: #F6F8F9;
 
   .task-item {
     margin-top: 20px;
@@ -11,11 +13,16 @@
 
   .task-list {
     margin-top: 20px;
+    background: white;
   }
 
   .task-header {
     font-size: 20px;
     font-weight: bold;
+
+    .dropdown {
+      float: right;
+    }
 
     .caret-down {
       color: #BDC3C7;
@@ -41,5 +48,13 @@
 
   .subtask {
     margin-left: 5px;
+  }
+
+  &.show-add-task {
+    width: 60%
+  }
+
+  &.hide-add-task {
+    width: 100%;
   }
 }

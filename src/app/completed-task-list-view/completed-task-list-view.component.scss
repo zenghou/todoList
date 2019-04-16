@@ -1,0 +1,45 @@
+.completed-task-list-view-container {
+  border: 1px solid #E7EAEB;
+  padding: 20px 20px 20px 20px;
+  margin-top: 20px;
+
+  .task-item {
+    margin-top: 20px;
+    border: 1px solid #E7EAEB;
+    padding: 10px 10px 10px 10px;
+  }
+
+  .task-list {
+    margin-top: 20px;
+  }
+
+  .task-header {
+    font-size: 20px;
+    font-weight: bold;
+
+    .caret-down {
+      color: #BDC3C7;
+    }
+  }
+
+  .subheader {
+    font-size: 16px;
+  }
+
+  .body {
+    font-size: 14px;
+  }
+
+  .hover {
+    color: #36D7B7;
+  }
+
+  .strike {
+    text-decoration: line-through;
+    color: #A0A0A0;
+  }
+
+  .subtask {
+    margin-left: 5px;
+  }
+}

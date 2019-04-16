@@ -1,4 +1,4 @@
-<div class="task-list-view-container">
+<div class="task-list-view-container hide-add-task">
   <button class="button" type="button" class="btn btn-primary" (click)="addTaskClickHandler()">Add Task</button>
   <div class="task-list">
 
@@ -20,10 +20,15 @@
       <div class="body"> {{ task.dateAdded }} </div>
       <div *ngFor="let subtask of task.subtasks; let subtaskIndex = index" class="body subtask-container">
         <span (click)="markAsComplete(taskIndex + '-' + subtaskIndex, $event)">
-          <fa-icon [icon]="['far', 'check-square']"
+          <fa-icon [icon]="['far', 'square']"
             (mouseenter)="checkBoxHandler($event)"
             (mouseleave)="checkBoxHandler($event)"
             (click)="checkBoxHandler($event)">
+          </fa-icon>
+          <fa-icon [icon]="['far', 'check-square']"
+            (mouseenter)="checkBoxHandler($event)"
+            (mouseleave)="checkBoxHandler($event)"
+            (click)="checkBoxHandler($event)" style="display:none">
           </fa-icon>
         </span>
 

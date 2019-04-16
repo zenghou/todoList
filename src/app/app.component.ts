@@ -44,7 +44,9 @@ export class AppComponent implements OnInit, AfterViewInit {
     if (event.type === 'selectMenuItem') {
       this.onSelected(event.selected);
     } else if (event.type === 'addTaskButtonClick') {
-      this.showTaskDetailPanel = true;
+      if (!this.showTaskDetailPanel) {
+        this.toggleShowAddTaskDetailPanel();
+      }
     } else if (event.type === 'addNewTask') {
       let taskObj = event.task;
       let newCategory = taskObj.newCategory; // will be null for existing categories
@@ -54,22 +56,23 @@ export class AppComponent implements OnInit, AfterViewInit {
         taskObj.category = taskObj.newCategory; // category will be null, so let's set it to new category
       }
       this.tasks.push(taskObj); // add new taskObj
-      this.showTaskDetailPanel = false;
+      this.toggleShowAddTaskDetailPanel();
     } else if (event.type === 'cancelAddTask') {
-      this.showTaskDetailPanel = false;
+      this.toggleShowAddTaskDetailPanel();
       this.existingFormObj = null;
     } else if (event.type === 'delete') {
       // remove category for now
       this.categories = this.categories.filter(category => category != event.task.category);
       this.tasks = this.tasks.filter((elem, index) => index !== event.index);
+      this.bannerType = 'task-deleted';
     } else if (event.type === 'edit') {
-      this.showTaskDetailPanel = true;
+      this.toggleShowAddTaskDetailPanel();
       this.existingFormObj = event.task;
       this.existingFormObj['index'] = event.index;
     } else if (event.type === 'updateTask') {
       let index = event['index'];
       this.tasks[index]['subtasks'] = event.task.subtasks;
-      this.showTaskDetailPanel = false;
+      this.toggleShowAddTaskDetailPanel();
       this.existingFormObj = null;
     } else if (event.type === 'mark-as-complete') {
       this.tasks = this.tasks.filter((task, index) => {
@@ -79,13 +82,25 @@ export class AppComponent implements OnInit, AfterViewInit {
         }
         return true;
       });
+      this.bannerType = 'task-moved';
+    } else if (event.type === 'showBanner') {
+      this.bannerType = event['message'];
+    } else if (event.type === 'bannerClosed') {
+      this.bannerType = null;
     }
   }
 
   onSelected(selectedItem) {
     this.currSelected = selectedItem;
     if (selectedItem === 'Complete') {
-      this.showTaskDetailPanel = false;
+      if (this.showTaskDetailPanel) {
+        this.toggleShowAddTaskDetailPanel();
+      }
     }
+  }
+
+  toggleShowAddTaskDetailPanel() {
+    this.showTaskDetailPanel = !this.showTaskDetailPanel;
+    $('.task-list-view-container').toggleClass('hide-add-task show-add-task', 1000);
   }
 }
