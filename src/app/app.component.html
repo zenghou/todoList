@@ -1,9 +1,13 @@
 <div id="root-wrapper">
+  <ngbd-alert-closeable 
+    *ngIf="bannerType != null"
+    [bannerType]="bannerType"
+    (eventEmitter)="eventHandler($event)">
+  </ngbd-alert-closeable>
   <app-sliding-underline-menu 
     [menuItems]="menuItems" 
     (currSelected)="eventHandler($event)">
   </app-sliding-underline-menu>
-
   <app-task-list-view *ngIf="currSelected === 'Incomplete'" 
     [tasks]="tasks"
     (eventEmitter)="eventHandler($event)">

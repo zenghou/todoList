@@ -14,6 +14,7 @@ import { SlidingUnderlineMenuComponent } from './sliding-underline-menu/sliding-
 import { TaskListViewComponent } from './task-list-view/task-list-view.component';
 import { CompletedTaskListViewComponent } from './completed-task-list-view/completed-task-list-view.component';
 import { TaskDetailPanelComponent } from './task-detail-panel/task-detail-panel.component';
+import { NgbdAlertCloseable } from './alert/alert.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { TaskDetailPanelComponent } from './task-detail-panel/task-detail-panel.
     SlidingUnderlineMenuComponent,
     TaskListViewComponent,
     CompletedTaskListViewComponent,
-    TaskDetailPanelComponent
+    TaskDetailPanelComponent,
+    NgbdAlertCloseable
   ],
   imports: [
     BrowserModule,

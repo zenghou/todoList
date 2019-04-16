@@ -1,4 +1,5 @@
 import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +14,8 @@ export class AppComponent implements OnInit, AfterViewInit {
   categories: string[]; // cached list of categories
   tasks: Object[]; // list of all tasks to be displayed
   completedTasks: Object[]; // list of all tasks to be displayed
-  existingFormObj: Object;
+  existingFormObj: Object; // stores the existing task if user wishes to edit
+  bannerType: String; // the type of banner to be displayed
 
   ngOnInit() {
     this.menuItems = ['Incomplete', 'Complete'];
@@ -23,6 +25,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.completedTasks = [];
     this.categories = [];
     this.existingFormObj = null;
+    this.bannerType = null;
 
     //temp
     this.tasks.push({

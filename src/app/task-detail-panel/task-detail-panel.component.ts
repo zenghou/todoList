@@ -59,6 +59,22 @@ export class TaskDetailPanelComponent implements OnInit {
     }
   }
 
+  saveTaskHelper(): void {
+    // validates input
+    if (
+      this._category == null ||
+      this._newCategory == null ||
+      this._tasks.filter(task => task.length == 0).length > 0 // tasks are not filled in
+    ) {
+      this.eventEmitter.emit({
+        'type' : 'showBanner',
+        'message': 'invalid-fields'
+      });
+    } else {
+      this.saveTask();
+    }
+  }
+
   saveTask(): void {
     let taskObj = {
       'category': this._category.value,

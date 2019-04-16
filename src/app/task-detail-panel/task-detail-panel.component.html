@@ -8,16 +8,7 @@
         <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
         <option>Add a new category</option>
       </select>
-
-<!-- Use bootstrap's dropdown for consistent UI -->
-<!--  <div ngbDropdown class="d-inline-block">
-        <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Select a category:</button>
-        <div ngbDropdownMenu aria-labelledby="dropdownBasic1" formControlName="category">
-          <button *ngFor="let category of categories" [value]="category" ngbDropdownItem>{{ category }}</button>
-          <button ngbDropdownItem>Add a new category</button>
-        </div>
-      </div> -->
-
+      
       <div *ngIf="showCategoryInput" id="category-input-wrapper">
         <label class="font-weight-bold" for="category-input">Category:</label>
         <input type="text" class="form-control" id="category-input" formControlName="newCategory">
@@ -28,7 +19,7 @@
       <!-- _tasksFormArray is getter defined in component -->
       <label class="font-weight-bold" for="task-input">Task:</label>
       <div *ngFor="let task of _tasksFormArray.controls; 
-        let i = index" [formGroupName]="i">
+        let i = index" [formGroupName]="i" class="input-group">
         <input type="text" id="task-input" class="form-control" formControlName="task">
         <button type="button" class="close" aria-label="Close" *ngIf="i !== 0">
           <span aria-hidden="true" (click)="removeTaskRow(i)">&times;</span>
@@ -40,7 +31,7 @@
 
   <div id="save-cancel-container">
     <button type="button" class="btn btn-light" (click)="cancelAddTask()">Cancel</button>
-    <button type="button" class="btn btn-primary" (click)="saveTask()">Save</button>
+    <button type="button" class="btn btn-primary" (click)="saveTaskHelper()">Save</button>
   </div>
 </div>
 
