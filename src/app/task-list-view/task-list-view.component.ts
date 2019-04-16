@@ -17,12 +17,15 @@ export class TaskListViewComponent implements OnInit {
   }
 
   checkBoxHandler(event) {
-    if (event.type === 'mouseleave' || event.type === 'click') {
+    if (event.type === 'click') {
+      let clickedIcon = $(event.target).parents('fa-icon');
+      let hiddenIcon = $(clickedIcon).siblings('fa-icon');
+      clickedIcon.hide();
+      hiddenIcon.show();
+    } else if (event.type === 'mouseleave') {
       $(event.target).removeClass('hover');
     } else if (event.type === 'mouseenter') {
       $(event.target).addClass('hover');
-    } else if (event.type === 'click') {
-      // toggle fa icon here
     }
   }
 
@@ -55,10 +58,14 @@ export class TaskListViewComponent implements OnInit {
     if (completed) {
       let $taskItem = $target.parents('.task-item');
       // emit event after slide up to show animation
-      $taskItem.slideUp(1000, () => {
+      $taskItem.fadeOut(800, () => {
         this.eventEmitter.emit({
           'type' : 'mark-as-complete',
           'index' : $taskItem.attr('id')
+        });
+        this.eventEmitter.emit({
+          'type' : 'showBanner',
+          'message' : 'task-completed'
         });
       });
     }

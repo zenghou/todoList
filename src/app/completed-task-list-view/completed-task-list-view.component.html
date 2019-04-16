@@ -19,7 +19,7 @@
       <div class="body"> {{ task.dateAdded }} </div>
       <div *ngFor="let subtask of task.subtasks; let subtaskIndex = index" class="body">
         <span (click)="markAsComplete(taskIndex + '-' + subtaskIndex, $event)">
-          <fa-icon [icon]="['far', 'check-square']"
+          <fa-icon [icon]="['fa', 'check']"
             (mouseenter)="hoverHandler($event)"
             (mouseleave)="hoverHandler($event)"
             (click)="hoverHandler($event)">
