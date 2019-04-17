@@ -6,12 +6,12 @@
         {{ task.category }}
         <div ngbDropdown class="d-inline-block">
           <div id="dropdownBasic1" ngbDropdownToggle>
-            <fa-icon [icon]="['fas', 'ellipsis-h']" class="caret-down"></fa-icon>
+            <fa-icon [icon]="['fas', 'ellipsis-h']" class="ellipsis"></fa-icon>
           </div>
 
           <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
             <button (click)="menuHandler($event, taskIndex, task)" ngbDropdownItem value="edit">Edit</button>
-            <button (click)="menuHandler($event, taskIndex, task)" ngbDropdownItem value="delete">Delete</button><button (click)="menuHandler($event, taskIndex, task)" ngbDropdownItem value="mark-as-complete">Mark As Incomplete</button>
+            <button (click)="menuHandler($event, taskIndex, task)" ngbDropdownItem value="delete">Delete</button><button (click)="menuHandler($event, taskIndex, task)" ngbDropdownItem value="mark-as-incomplete">Mark As Incomplete</button>
           </div>
         </div>
       </div>

@@ -83,6 +83,14 @@ export class AppComponent implements OnInit, AfterViewInit {
         return true;
       });
       this.bannerType = 'task-moved';
+    } else if (event.type === 'mark-as-incomplete') {
+      this.completedTasks = this.completedTasks.filter((task, index) => {
+        if (index == event['index']) {
+          this.tasks.push(task);
+          return false;
+        }
+        return true;
+      });
     } else if (event.type === 'showBanner') {
       this.bannerType = event['message'];
     } else if (event.type === 'bannerClosed') {
@@ -100,7 +108,9 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   toggleShowAddTaskDetailPanel() {
-    this.showTaskDetailPanel = !this.showTaskDetailPanel;
-    $('.task-list-view-container').toggleClass('hide-add-task show-add-task', 1000);
+    // if it's closing, we want it to be immediate
+    let delay = $('.task-list-view-container').hasClass('show-add-task') ? 0 : 600;
+    $('.task-list-view-container').toggleClass('hide-add-task show-add-task');
+    setTimeout(() => {this.showTaskDetailPanel = !this.showTaskDetailPanel;}, delay)
   }
 }

@@ -15,4 +15,12 @@ export class CompletedTaskListViewComponent implements OnInit {
   ngOnInit() {
   }
 
+  menuHandler(event, index, task): void {
+    let type = $(event.target).val();
+    this.eventEmitter.emit({
+      'type' : type,
+      'index' : index,
+      'task' : task
+    });
+  }
 }

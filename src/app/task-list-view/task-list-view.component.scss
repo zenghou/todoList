@@ -4,6 +4,7 @@
   margin-top: 20px;
   display: inline-block;
   background: #F6F8F9;
+  transition: width .8s;
 
   .task-item {
     margin-top: 20px;
@@ -24,7 +25,7 @@
       float: right;
     }
 
-    .caret-down {
+    .ellipsis {
       color: #BDC3C7;
     }
   }

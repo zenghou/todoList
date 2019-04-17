@@ -17,7 +17,11 @@
     font-size: 20px;
     font-weight: bold;
 
-    .caret-down {
+    .dropdown {
+      float: right;
+    }
+
+    .ellipsis {
       color: #BDC3C7;
     }
   }
