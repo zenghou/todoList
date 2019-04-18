@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-completed-task-list-view',
